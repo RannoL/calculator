@@ -20,8 +20,8 @@ function divide (a,b) {
 }
 
 function operate (operator, a, b) {
-    clearDisplay()
     let answer = operator(a,b);
+    displayContent = answer
     display.setAttribute('value', answer);
     return answer;
     
@@ -33,7 +33,6 @@ function clearDisplay() {
 }
 
 function doOneOperation (arr, operation) {
-    console.log(arr)
     //["2", "+", "3"]
     let a = parseInt(arr[0]);
     let b = parseInt(arr[arr.length-1]);
