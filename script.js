@@ -28,8 +28,11 @@ function operate (operator, a, b) {
 }
 
 function clearDisplay() {
-    displayContent = ""
+    displayContent = "";
+    historyContent = "";
     display.setAttribute('value', displayContent);
+    historyDisplay.setAttribute('value', historyContent);
+
 }
 
 function doOneOperation (arr, operation) {
@@ -94,6 +97,8 @@ function doSequenceOperation (arr){
 function readDisplay (str){
     //numbers and operators are seperated by spaces
     let contentArr = str.split(" ");
+    historyContent = str + " = ";
+    historyDisplay.setAttribute('value', historyContent)
 
     //Includes one operation
     if (contentArr.length < 4){
