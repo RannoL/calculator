@@ -40,13 +40,57 @@ function doOneOperation (arr, operation) {
     operate(operation, a, b)
 }
 
+
 function doSequenceOperation (arr){
-    let result = 0;
-    while (arr.length > 0){
-        return
+//Do × and ÷ firts, replace their values in the array and then add and subtract
+//Final result will be the only element in the array.
+    while (arr.length > 1){
+        let test = arr.some(el => el === "×" || el === "÷");
+        let test2 = arr.some(el => el === "+" || el === "-");
+
+        //Multiply or divide
+        while (test) {
+            if (arr.includes("×")) {
+                let a = parseInt(arr[arr.indexOf("×") - 1]);
+                let b = parseInt(arr[arr.indexOf("×") + 1]);
+                let result = operate(multiply, a, b);
+
+                //Replace the operators with the result
+                arr.splice((arr.indexOf("×") - 1),3, result);
+                test = arr.some(el => el === "×" || el === "÷");
+            }
+            else {
+                let a = parseInt(arr[arr.indexOf("÷") - 1]);
+                let b = parseInt(arr[arr.indexOf("÷") + 1]);
+                let result = operate(divide, a, b);
+
+                arr.splice((arr.indexOf("÷")-1),3, result);
+                test = arr.some(el => el === "×" || el === "÷");
+            }
+        }
+
+        //Add or subtract
+        while (test2) {
+            if (arr.includes("+")) {
+                let a = parseInt(arr[arr.indexOf("+") - 1]);
+                let b = parseInt(arr[arr.indexOf("+") + 1]);
+                let result = operate(add, a, b);
+
+                arr.splice((arr.indexOf("+") - 1),3, result);
+                test2 = arr.some(el => el === "+" || el === "-");
+            }
+            else {
+                let a = parseInt(arr[arr.indexOf("-") - 1]);
+                let b = parseInt(arr[arr.indexOf("-") + 1]);
+                let result = operate(subtract, a, b);
+
+                arr.splice((arr.indexOf("-")-1),3, result);
+                test2 = arr.some(el => el === "+" || el === "-");
+            }
+        }
+
     }
 }
-
 
 function readDisplay (str){
     //numbers and operators are seperated by spaces
@@ -69,96 +113,6 @@ function readDisplay (str){
     else {
         doSequenceOperation(contentArr);
     }
-
-    /* while (contentArr.length > 0){
-        if (contentArr.includes("×")){
-            let aIndex = (contentArr.indexOf("×") - 1);
-            let bIndex = (contentArr.indexOf("×") + 1);
-            let a = parseInt(contentArr[aIndex]);
-            let b = parseInt(contentArr[bIndex]);
-            result = operate(multiply, a, b);
-
-            //Remove this operation from array
-            contentArr.splice(aIndex,3);
-            console.log(result);
-            console.log(contentArr);
-        }
-        else if (contentArr.includes("÷")){
-            let a = parseInt(contentArr[contentArr.indexOf("÷") - 1]);
-            console.log(`a in / before evaluation: ${a}`);
-            if (isNaN(a)){
-                a = result;
-                console.log(`a=result a: ${a}`);
-                let b = parseInt(contentArr[contentArr.indexOf("÷") + 1]);
-                result = operate(divide, a, b);
-                console.log(`result /: ${result}`);
-                contentArr.splice((contentArr.indexOf("÷")),2);
-                console.log(contentArr);
-            }
-            else {
-                let b = parseInt(contentArr[contentArr.indexOf("÷") + 1]);
-                result = operate(divide, a, b);
-                console.log(`result / : ${result}`);
-                contentArr.splice((contentArr.indexOf("÷")-1),3);
-                console.log(contentArr);
-            }
-
-        }
-        else if (contentArr.includes("+")){
-            let a = parseInt(contentArr[contentArr.indexOf("+") - 1]);
-            console.log(`a in + before evaluation: ${a}`);
-            if (isNaN(a) && ){
-                a = result;
-                console.log(`a=result a: ${a}`);
-                let b = parseInt(contentArr[contentArr.indexOf("+") + 1]);
-                result = operate(add, a, b);
-                console.log(`result +: ${result}`);
-                contentArr.splice((contentArr.indexOf("+")),2);
-                console.log(contentArr);
-            }
-            else {
-                console.log("a != Nan");
-                let b = parseInt(contentArr[contentArr.indexOf("+") + 1]);
-                //If "+" the last element, b will be Nan; 4+2*3
-                if (isNaN(b)){
-                    b = result;
-                    result = operate(add,a,b);
-                    contentArr.splice((contentArr.indexOf("+")-1),2);
-                    console.log(`b isNan result +: ${result}`)
-                }
-                result = operate(add, a, b);
-                contentArr.splice((contentArr.indexOf("+")-1),3);
-                console.log(contentArr); 
-            }
-
-        }
-        else if (contentArr.includes("-")){
-            let a = parseInt(contentArr[contentArr.indexOf("-") - 1]);
-            console.log(`a in - before evaluation: ${a}`);
-            if (isNaN(a)){
-                a = result;
-                let b = parseInt(contentArr[contentArr.indexOf("-") + 1]);
-                result = operate(subtract, a, b);
-                console.log(`result -: ${result}`);
-                contentArr.splice((contentArr.indexOf("-")),2);
-                console.log(contentArr);
-            }
-            else {
-                console.log("a != Nan");
-                let b = parseInt(contentArr[contentArr.indexOf("-") + 1]);
-                
-                if (isNaN(b)){
-                    b = result;
-                    result = operate(subtract,a,b);
-                    contentArr.splice((contentArr.indexOf("-")-1),2);
-                    console.log(`b isNan result: ${result}`)
-                }
-                result = operate(subtract, a, b);
-                contentArr.splice((contentArr.indexOf("-")-1),3);
-                console.log(contentArr); 
-            }   
-        }
-    }   */
 }
 
 function createButtons () {
