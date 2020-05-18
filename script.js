@@ -4,7 +4,6 @@ const display = document.querySelector('#display');
 const historyDisplay = document.querySelector('#historyDisplay');
 
 function add (a,b) {
-    
     return a+b; 
 }
 
@@ -24,6 +23,7 @@ function operate (operator, a, b) {
     clearDisplay()
     let answer = operator(a,b);
     display.setAttribute('value', answer);
+    return answer;
     
 }
 
@@ -32,15 +32,137 @@ function clearDisplay() {
     display.setAttribute('value', displayContent);
 }
 
+function doOneOperation (arr) {
+    if (arr.includes("×")){
+        let a = parseInt(arr[arr.indexOf("×") - 1]);
+        let b = parseInt(arr[arr.indexOf("×") + 1]);
+        operate(multiply, a, b);
+    }
+    else if(arr.includes("÷")){
+        let a = parseInt(arr[arr.indexOf("÷") - 1]);
+        let b = parseInt(arr[arr.indexOf("÷") + 1]);
+        operate(divide, a, b);
+    }
+    else if(arr.includes("+")){
+        let a = parseInt(arr[arr.indexOf("+") - 1]);
+        let b = parseInt(arr[arr.indexOf("+") + 1]);
+        operate(add, a, b);
+    }
+    else if(arr.includes("-")){
+        let a = parseInt(arr[arr.indexOf("-") - 1]);
+        let b = parseInt(arr[arr.indexOf("-") + 1]);
+        operate(subtract, a, b);
+    }
+}
+
+function doSequenceOperation (arr){
+    let result = 0;
+    while (arr.length > 0){
+        return
+    }
+}
+
+
 function readDisplay (str){
     //numbers and operators are seperated by spaces
-    const contentArr = str.split(" ");
-    if (contentArr.includes("+")){
-        let a = parseInt(contentArr[contentArr.indexOf("+") - 1])
-        let b = parseInt(contentArr[contentArr.indexOf("+") + 1])
-        operate(add, a, b)
+    let contentArr = str.split(" ");
+    //Includes one operation
+    if (contentArr.length < 4){
+        doOneOperation(contentArr);
     }
-    
+    //Includes multiple operations
+    else {
+        doSequenceOperation(contentArr);
+    }
+    /* while (contentArr.length > 0){
+        if (contentArr.includes("×")){
+            let aIndex = (contentArr.indexOf("×") - 1);
+            let bIndex = (contentArr.indexOf("×") + 1);
+            let a = parseInt(contentArr[aIndex]);
+            let b = parseInt(contentArr[bIndex]);
+            result = operate(multiply, a, b);
+
+            //Remove this operation from array
+            contentArr.splice(aIndex,3);
+            console.log(result);
+            console.log(contentArr);
+        }
+        else if (contentArr.includes("÷")){
+            let a = parseInt(contentArr[contentArr.indexOf("÷") - 1]);
+            console.log(`a in / before evaluation: ${a}`);
+            if (isNaN(a)){
+                a = result;
+                console.log(`a=result a: ${a}`);
+                let b = parseInt(contentArr[contentArr.indexOf("÷") + 1]);
+                result = operate(divide, a, b);
+                console.log(`result /: ${result}`);
+                contentArr.splice((contentArr.indexOf("÷")),2);
+                console.log(contentArr);
+            }
+            else {
+                let b = parseInt(contentArr[contentArr.indexOf("÷") + 1]);
+                result = operate(divide, a, b);
+                console.log(`result / : ${result}`);
+                contentArr.splice((contentArr.indexOf("÷")-1),3);
+                console.log(contentArr);
+            }
+
+        }
+        else if (contentArr.includes("+")){
+            let a = parseInt(contentArr[contentArr.indexOf("+") - 1]);
+            console.log(`a in + before evaluation: ${a}`);
+            if (isNaN(a) && ){
+                a = result;
+                console.log(`a=result a: ${a}`);
+                let b = parseInt(contentArr[contentArr.indexOf("+") + 1]);
+                result = operate(add, a, b);
+                console.log(`result +: ${result}`);
+                contentArr.splice((contentArr.indexOf("+")),2);
+                console.log(contentArr);
+            }
+            else {
+                console.log("a != Nan");
+                let b = parseInt(contentArr[contentArr.indexOf("+") + 1]);
+                //If "+" the last element, b will be Nan; 4+2*3
+                if (isNaN(b)){
+                    b = result;
+                    result = operate(add,a,b);
+                    contentArr.splice((contentArr.indexOf("+")-1),2);
+                    console.log(`b isNan result +: ${result}`)
+                }
+                result = operate(add, a, b);
+                contentArr.splice((contentArr.indexOf("+")-1),3);
+                console.log(contentArr); 
+            }
+
+        }
+        else if (contentArr.includes("-")){
+            let a = parseInt(contentArr[contentArr.indexOf("-") - 1]);
+            console.log(`a in - before evaluation: ${a}`);
+            if (isNaN(a)){
+                a = result;
+                let b = parseInt(contentArr[contentArr.indexOf("-") + 1]);
+                result = operate(subtract, a, b);
+                console.log(`result -: ${result}`);
+                contentArr.splice((contentArr.indexOf("-")),2);
+                console.log(contentArr);
+            }
+            else {
+                console.log("a != Nan");
+                let b = parseInt(contentArr[contentArr.indexOf("-") + 1]);
+                
+                if (isNaN(b)){
+                    b = result;
+                    result = operate(subtract,a,b);
+                    contentArr.splice((contentArr.indexOf("-")-1),2);
+                    console.log(`b isNan result: ${result}`)
+                }
+                result = operate(subtract, a, b);
+                contentArr.splice((contentArr.indexOf("-")-1),3);
+                console.log(contentArr); 
+            }   
+        }
+    }   */
 }
 
 function createButtons () {
@@ -80,7 +202,7 @@ function inputToDisplay (e, btnValues, i){
 
     }
     else if(value === "="){
-        //function to make str (display content) into an array and seperate numbers and operators
+        //Make str (display content) into an array and seperate numbers and operators
         readDisplay(displayContent);
     }
     else if (value === "⌫"){
@@ -97,9 +219,4 @@ function inputToDisplay (e, btnValues, i){
 }
 
 
-
-
-createButtons()
-/* spread input, kui vajutada equal siis votta elemendid ja arvutada.
- Nt kui leiab + siis uks enne ja parast element omavahel 
- liita ja panna see historisse ning result display peale */
+createButtons();
