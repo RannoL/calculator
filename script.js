@@ -32,27 +32,12 @@ function clearDisplay() {
     display.setAttribute('value', displayContent);
 }
 
-function doOneOperation (arr) {
-    if (arr.includes("×")){
-        let a = parseInt(arr[arr.indexOf("×") - 1]);
-        let b = parseInt(arr[arr.indexOf("×") + 1]);
-        operate(multiply, a, b);
-    }
-    else if(arr.includes("÷")){
-        let a = parseInt(arr[arr.indexOf("÷") - 1]);
-        let b = parseInt(arr[arr.indexOf("÷") + 1]);
-        operate(divide, a, b);
-    }
-    else if(arr.includes("+")){
-        let a = parseInt(arr[arr.indexOf("+") - 1]);
-        let b = parseInt(arr[arr.indexOf("+") + 1]);
-        operate(add, a, b);
-    }
-    else if(arr.includes("-")){
-        let a = parseInt(arr[arr.indexOf("-") - 1]);
-        let b = parseInt(arr[arr.indexOf("-") + 1]);
-        operate(subtract, a, b);
-    }
+function doOneOperation (arr, operation) {
+    console.log(arr)
+    //["2", "+", "3"]
+    let a = parseInt(arr[0]);
+    let b = parseInt(arr[arr.length-1]);
+    operate(operation, a, b)
 }
 
 function doSequenceOperation (arr){
@@ -66,14 +51,25 @@ function doSequenceOperation (arr){
 function readDisplay (str){
     //numbers and operators are seperated by spaces
     let contentArr = str.split(" ");
+
     //Includes one operation
     if (contentArr.length < 4){
-        doOneOperation(contentArr);
+        if (contentArr.includes("×")){
+            doOneOperation(contentArr, multiply);
+        }
+        else if(contentArr.includes("÷")){
+            doOneOperation(contentArr, divide);
+        }else if(contentArr.includes("+")){
+            doOneOperation(contentArr, add);
+        }else if(contentArr.includes("-")){
+            doOneOperation(contentArr, subtract);
+        }
     }
     //Includes multiple operations
     else {
         doSequenceOperation(contentArr);
     }
+
     /* while (contentArr.length > 0){
         if (contentArr.includes("×")){
             let aIndex = (contentArr.indexOf("×") - 1);
