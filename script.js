@@ -21,9 +21,15 @@ function divide (a,b) {
 
 function operate (operator, a, b) {
     //Rounding for decimal calculations
+    if (isNaN(a) || isNaN(b)){
+        console.log("isNan")
+        displayContent = "Error";
+        historyContent = "";
+        display.setAttribute('value', displayContent);
+        historyDisplay.setAttribute('value', historyContent);
+        return
+    }
     let answer = Math.round((operator(a,b))*10000)/10000;
-    console.log(`a: ${a} b: ${b} operator: ${operator}`);
-    console.log(`answer: ${answer}`)
     displayContent = answer
     display.setAttribute('value', answer);
     return answer;
@@ -81,8 +87,6 @@ function doSequenceOperation (arr){
             //Returns -1 if the item is not found.
             let addIndex = arr.indexOf("+"); // = 3
             let subtractIndex = arr.indexOf("-"); // = 1, this is done first
-
-            console.log(arr)
 
             if (addIndex < subtractIndex  && addIndex !== -1|| subtractIndex === -1){
                 let a = parseFloat(arr[arr.indexOf("+") - 1]);
@@ -185,3 +189,6 @@ function inputToDisplay (e, btnValues, i){
 
 
 createButtons();
+
+/* console.log(`a: ${a} b: ${b} operator: ${operator}`);
+console.log(`answer: ${answer}`) */
