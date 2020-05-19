@@ -27,6 +27,10 @@ form {
     opacity: 0.5;
 }
 
+input {
+    page-break-after: always;
+}
+
 #btnsContainer {
     width: 100%;
     display: flex;
@@ -49,7 +53,14 @@ button {
 
 }
 
-.add {
+.equal {
     grid-row: span 2;
+}
+
+.zero {
+    grid-column: span 2;
+}
+.clear {
+    grid-column: span 2;
 }
 

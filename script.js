@@ -42,12 +42,11 @@ function operate (operator, a, b) {
     
 }
 
-function clearDisplay() {
+function clearEverything(){
     displayContent = "";
     historyContent = "";
     display.setAttribute('value', displayContent);
     historyDisplay.setAttribute('value', historyContent);
-
 }
 
 function doOneOperation (arr, operation) {
@@ -141,16 +140,16 @@ function readDisplay (str){
 }
 
 function createButtons () {
-    const btnClasses = ["clear", "erase", "percentage", "divide",
-         "seven", "eight", "nine", "multiply",
-         "four", "five", "six", "subtract",
-         "one", "two", "three", "add",
-         "zero", "decimal", "equal"]
-    const btnValues = ["C", "⌫", "%", "÷",
-        "7", "8", "9", "×",
-        "4", "5", "6", "-",
-        "1", "2", "3", "+",
-        "0", ".", "="]
+    const btnClasses = ["clear", "divide","multiply",
+         "seven", "eight", "nine", "subtract",
+         "four", "five", "six", "add",
+         "one", "two", "three", "equal",
+         "zero", "decimal"]
+    const btnValues = ["CE","÷","×",
+        "7", "8", "9","-", 
+        "4","5", "6", "+",
+        "1", "2", "3", "=",
+        "0", "."]
 
     for (let i= 0; i < btnClasses.length; i++){
         const button = document.createElement('BUTTON');
@@ -170,20 +169,15 @@ function inputToDisplay (e, btnValues, i){
     displayContent += btnSelection;
     display.setAttribute('value', displayContent);
     }
-    else if (value === "C"){
-        clearDisplay();
-    }
-    else if (value === "%"){
-
+    else if (value === "CE"){
+        clearEverything();
     }
     else if(value === "="){
         //Make str (display content) into an array and seperate numbers and operators
         readDisplay(displayContent);
     }
-    else if (value === "⌫"){
-        let newContent = displayContent.substring(0, displayContent.length-1);
-        displayContent = newContent;
-        display.setAttribute('value', displayContent);
+    else if (value === "C"){
+        toHistory();
     }
     else {
         //Add spaces to operators
