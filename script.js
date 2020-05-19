@@ -38,6 +38,7 @@ function operate (operator, a, b) {
     //Rounding for decimal calculations
     let answer = Math.round((operator(a,b))*10000)/10000;
     displayContent = answer
+    answer.toString().includes(".") ? document.querySelector('.decimal').disabled = true : void(0);
     display.setAttribute('value', answer);
     return answer;
     
