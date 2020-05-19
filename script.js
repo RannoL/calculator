@@ -51,6 +51,34 @@ function clearEverything(){
     document.querySelector('.decimal').disabled = false;
 }
 
+function erase(){
+    if (displayContent.length > 1) {
+        let contentArr = displayContent.split("");
+        lastInput = contentArr[contentArr.length - 1];
+        if (lastInput === " ") {
+            contentArr.pop();
+            contentArr.pop();
+            contentArr.pop();
+            displayContent = contentArr.join("");
+            display.setAttribute('value', displayContent)
+    
+        }
+        else {
+            let a = contentArr.pop();
+            if (a === ".") {
+                document.querySelector('.decimal').disabled = false;
+            }
+            displayContent = contentArr.join("");
+            display.setAttribute('value', displayContent)
+        }
+    }
+    else {
+        displayContent = "";
+        display.setAttribute('value', displayContent)
+
+    }
+}
+
 function doOneOperation (arr, operation) {
     //["2", "+", "3"]
     let a = parseFloat(arr[0]);
@@ -141,12 +169,12 @@ function readDisplay (str){
 }
 
 function createButtons () {
-    const btnClasses = ["clear", "divide","multiply",
+    const btnClasses = ["clear", "erase", "divide","multiply",
          "seven", "eight", "nine", "subtract",
          "four", "five", "six", "add",
          "one", "two", "three", "equal",
          "zero", "decimal"]
-    const btnValues = ["CE","÷","×",
+    const btnValues = ["CE","⌫", "÷","×",
         "7", "8", "9","-", 
         "4","5", "6", "+",
         "1", "2", "3", "=",
@@ -174,6 +202,9 @@ function inputToDisplay (e, btnValues, i){
     else if (value === "CE"){
         clearEverything();
     }
+    else if(value === "⌫") {
+        erase ();
+    }
     else if(value === "="){
         decimalBtn.disabled = false;
         //Make str (display content) into an array and seperate numbers and operators
@@ -185,7 +216,6 @@ function inputToDisplay (e, btnValues, i){
             display.setAttribute('value', displayContent);
             decimalBtn.disabled = true;
         }
-
     }
     else {
         //Add spaces to operators
