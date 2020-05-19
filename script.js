@@ -20,15 +20,21 @@ function divide (a,b) {
 }
 
 function operate (operator, a, b) {
-    //Rounding for decimal calculations
+    //Error catches
     if (isNaN(a) || isNaN(b)){
-        console.log("isNan")
         displayContent = "Error";
         historyContent = "";
         display.setAttribute('value', displayContent);
         historyDisplay.setAttribute('value', historyContent);
         return
+    }else if (b === 0 && operator === divide) {
+        displayContent = "Cannot divide by zero";
+        historyContent = "";
+        display.setAttribute('value', displayContent);
+        historyDisplay.setAttribute('value', historyContent);
+        return
     }
+    //Rounding for decimal calculations
     let answer = Math.round((operator(a,b))*10000)/10000;
     displayContent = answer
     display.setAttribute('value', answer);
