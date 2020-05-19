@@ -3,6 +3,7 @@ let historyContent = "";
 const display = document.querySelector('#display');
 const historyDisplay = document.querySelector('#historyDisplay');
 
+
 function add (a,b) {
     return a+b; 
 }
@@ -47,13 +48,13 @@ function clearEverything(){
     historyContent = "";
     display.setAttribute('value', displayContent);
     historyDisplay.setAttribute('value', historyContent);
+    document.querySelector('.decimal').disabled = false;
 }
 
 function doOneOperation (arr, operation) {
     //["2", "+", "3"]
     let a = parseFloat(arr[0]);
     let b = parseFloat(arr[arr.length-1]);
-    console.log({a,b,arr})
     operate(operation, a, b)
 }
 
@@ -163,9 +164,10 @@ function createButtons () {
 function inputToDisplay (e, btnValues, i){
     let btnSelection = e.target.textContent;
     let value = btnValues[i];
+    const decimalBtn = document.querySelector('.decimal');
 
     //[0-9] is >= 0
-    if ( value >= 0 || value === "."){
+    if ( value >= 0){
     displayContent += btnSelection;
     display.setAttribute('value', displayContent);
     }
@@ -173,17 +175,23 @@ function inputToDisplay (e, btnValues, i){
         clearEverything();
     }
     else if(value === "="){
+        decimalBtn.disabled = false;
         //Make str (display content) into an array and seperate numbers and operators
         readDisplay(displayContent);
     }
-    else if (value === "C"){
-        toHistory();
+    else if (value === "."){
+        if (!decimalBtn.disabled){
+            displayContent += btnSelection;
+            display.setAttribute('value', displayContent);
+            decimalBtn.disabled = true;
+        }
+
     }
     else {
         //Add spaces to operators
         displayContent += ` ${btnSelection} `;
         display.setAttribute('value', displayContent);
-
+        decimalBtn.disabled = false;
     } 
 }
 
