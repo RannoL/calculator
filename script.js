@@ -22,6 +22,8 @@ function divide (a,b) {
 function operate (operator, a, b) {
     //Rounding for decimal calculations
     let answer = Math.round((operator(a,b))*10000)/10000;
+    console.log(`a: ${a} b: ${b} operator: ${operator}`);
+    console.log(`answer: ${answer}`)
     displayContent = answer
     display.setAttribute('value', answer);
     return answer;
@@ -75,7 +77,14 @@ function doSequenceOperation (arr){
 
         //Add or subtract
         while (test2) {
-            if (arr.includes("+")) {
+            //Determine if add or subtract should be done first; [12-18+1.2]
+            //Returns -1 if the item is not found.
+            let addIndex = arr.indexOf("+"); // = 3
+            let subtractIndex = arr.indexOf("-"); // = 1, this is done first
+
+            console.log(arr)
+
+            if (addIndex < subtractIndex  && addIndex !== -1|| subtractIndex === -1){
                 let a = parseFloat(arr[arr.indexOf("+") - 1]);
                 let b = parseFloat(arr[arr.indexOf("+") + 1]);
                 let result = operate(add, a, b);
