@@ -168,6 +168,44 @@ function readDisplay (str){
     }
 }
 
+function numpadToDisplay () {
+    window.addEventListener('keydown', e => {
+        const button = document.querySelector(`button[data-key="${e.keyCode}"]`)
+        const value = button.textContent;
+        const decimalBtn = document.querySelector('.decimal');
+        if (!button || !value) return;
+
+        if ( value >= 0){
+            displayContent += value;
+            display.setAttribute('value', displayContent);
+            }
+            else if (value === "CE"){
+                clearEverything();
+            }
+            else if(value === "⌫") {
+                erase ();
+            }
+            else if(value === "="){
+                decimalBtn.disabled = false;
+                //Make str (display content) into an array and seperate numbers and operators
+                readDisplay(displayContent);
+            }
+            else if (value === "."){
+                if (!decimalBtn.disabled){
+                    displayContent += value;
+                    display.setAttribute('value', displayContent);
+                    decimalBtn.disabled = true;
+                }
+            }
+            else {
+                //Add spaces to operators
+                displayContent += ` ${value} `;
+                display.setAttribute('value', displayContent);
+                decimalBtn.disabled = false;
+            } 
+    })
+}
+
 function createButtons () {
     const btnClasses = ["clear", "erase", "divide","multiply",
          "seven", "eight", "nine", "subtract",
@@ -179,11 +217,17 @@ function createButtons () {
         "4","5", "6", "+",
         "1", "2", "3", "=",
         "0", "."]
+    const keyCodes = ["27", "8", "111", "106", 
+            "103", "104", "105", "109",
+            "100", "101", "102", "107",
+            "97", "98", "99", "13",
+            "96", "110"]
 
     for (let i= 0; i < btnClasses.length; i++){
         const button = document.createElement('BUTTON');
         button.classList.add(btnClasses[i]);
         button.textContent = btnValues[i];
+        button.dataset.key = keyCodes[i];
         button.addEventListener('click', e => inputToDisplay(e, btnValues, i)); 
         document.querySelector('#buttons').appendChild(button);
     }       
@@ -225,8 +269,5 @@ function inputToDisplay (e, btnValues, i){
     } 
 }
 
-
 createButtons();
-
-/* console.log(`a: ${a} b: ${b} operator: ${operator}`);
-console.log(`answer: ${answer}`) */
+numpadToDisplay();
