@@ -20,7 +20,8 @@ function divide (a,b) {
 }
 
 function operate (operator, a, b) {
-    let answer = operator(a,b);
+    //Rounding for decimal calculations
+    let answer = Math.round((operator(a,b))*10000)/10000;
     displayContent = answer
     display.setAttribute('value', answer);
     return answer;
@@ -37,8 +38,9 @@ function clearDisplay() {
 
 function doOneOperation (arr, operation) {
     //["2", "+", "3"]
-    let a = parseInt(arr[0]);
-    let b = parseInt(arr[arr.length-1]);
+    let a = parseFloat(arr[0]);
+    let b = parseFloat(arr[arr.length-1]);
+    console.log({a,b,arr})
     operate(operation, a, b)
 }
 
@@ -53,8 +55,8 @@ function doSequenceOperation (arr){
         //Multiply or divide
         while (test) {
             if (arr.includes("×")) {
-                let a = parseInt(arr[arr.indexOf("×") - 1]);
-                let b = parseInt(arr[arr.indexOf("×") + 1]);
+                let a = parseFloat(arr[arr.indexOf("×") - 1]);
+                let b = parseFloat(arr[arr.indexOf("×") + 1]);
                 let result = operate(multiply, a, b);
 
                 //Replace the operators with the result
@@ -62,8 +64,8 @@ function doSequenceOperation (arr){
                 test = arr.some(el => el === "×" || el === "÷");
             }
             else {
-                let a = parseInt(arr[arr.indexOf("÷") - 1]);
-                let b = parseInt(arr[arr.indexOf("÷") + 1]);
+                let a = parseFloat(arr[arr.indexOf("÷") - 1]);
+                let b = parseFloat(arr[arr.indexOf("÷") + 1]);
                 let result = operate(divide, a, b);
 
                 arr.splice((arr.indexOf("÷")-1),3, result);
@@ -74,16 +76,16 @@ function doSequenceOperation (arr){
         //Add or subtract
         while (test2) {
             if (arr.includes("+")) {
-                let a = parseInt(arr[arr.indexOf("+") - 1]);
-                let b = parseInt(arr[arr.indexOf("+") + 1]);
+                let a = parseFloat(arr[arr.indexOf("+") - 1]);
+                let b = parseFloat(arr[arr.indexOf("+") + 1]);
                 let result = operate(add, a, b);
 
                 arr.splice((arr.indexOf("+") - 1),3, result);
                 test2 = arr.some(el => el === "+" || el === "-");
             }
             else {
-                let a = parseInt(arr[arr.indexOf("-") - 1]);
-                let b = parseInt(arr[arr.indexOf("-") + 1]);
+                let a = parseFloat(arr[arr.indexOf("-") - 1]);
+                let b = parseFloat(arr[arr.indexOf("-") + 1]);
                 let result = operate(subtract, a, b);
 
                 arr.splice((arr.indexOf("-")-1),3, result);
@@ -145,7 +147,7 @@ function inputToDisplay (e, btnValues, i){
     let value = btnValues[i];
 
     //[0-9] is >= 0
-    if ( value >= 0){
+    if ( value >= 0 || value === "."){
     displayContent += btnSelection;
     display.setAttribute('value', displayContent);
     }
