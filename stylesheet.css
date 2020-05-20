@@ -48,6 +48,7 @@ form {
     background-color: transparent;
     border: none;
     outline: none;
+    pointer-events: none;
 }
 
 #historyDisplay {
@@ -107,6 +108,12 @@ button:hover {
 .multiply:hover,.subtract:hover,
 .add:hover{
     background-color: #F97518;
+}
+
+button:active {
+    color: #10253D;
+    transform: scale(0.8);
+    transition: 0.3s;
 }
 
 .zero {

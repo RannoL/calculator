@@ -300,3 +300,4 @@ function inputToDisplay (e, btnValues, i){
 
 createButtons();
 numpadToDisplay();
+
