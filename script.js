@@ -20,11 +20,74 @@ function divide (a,b) {
     return a/b;
 }
 
+function addKeydownEvents (e) {
+    //prevents enter from excecuting the focused button
+    e.preventDefault();
+    const button = document.querySelector(`button[data-key="${e.keyCode}"]`)
+    if (!button)return;
+    const value = button.textContent;
+    const decimalBtn = document.querySelector('.decimal');
+    
+
+    if ( value >= 0){
+        displayContent += value;
+        display.setAttribute('value', displayContent);
+        }
+        else if (value === "CE"){
+            clearEverything();
+        }
+        else if(value === "⌫") {
+            erase ();
+        }
+        else if(value === "="){
+            decimalBtn.disabled = false;
+            //Make str (display content) into an array and seperate numbers and operators
+            readDisplay(displayContent);
+        }
+        else if (value === "."){
+            if (!decimalBtn.disabled){
+                displayContent += value;
+                display.setAttribute('value', displayContent);
+                decimalBtn.disabled = true;
+            }
+        }
+        else {
+            //Add spaces to operators
+            displayContent += ` ${value} `;
+            display.setAttribute('value', displayContent);
+            decimalBtn.disabled = false;
+        } 
+}
+
+function numpadToDisplay() {
+    window.addEventListener('keydown', addKeydownEvents);
+}
+
+function restartWithEnter(e){
+    e.keyCode === 13 ? clearEverything() : void(0);
+}
+
+function enableAllBtns () {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button =>  button.disabled = false);
+    window.removeEventListener('keydown', restartWithEnter);
+    window.addEventListener('keydown', addKeydownEvents);
+}
+
+function disableAllBtns () {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button =>  button.disabled = true)
+    document.querySelector('.clear').disabled = false;
+    window.removeEventListener('keydown', addKeydownEvents);
+    window.addEventListener('keydown', restartWithEnter);
+}
+
 function operate (operator, a, b) {
     //Error catches
     if (isNaN(a) || isNaN(b)){
         displayContent = "Error";
         historyContent = "";
+        disableAllBtns();
         display.setAttribute('value', displayContent);
         historyDisplay.setAttribute('value', historyContent);
         return
@@ -49,7 +112,7 @@ function clearEverything(){
     historyContent = "";
     display.setAttribute('value', displayContent);
     historyDisplay.setAttribute('value', historyContent);
-    document.querySelector('.decimal').disabled = false;
+    enableAllBtns();
 }
 
 function erase(){
@@ -143,8 +206,11 @@ function doSequenceOperation (arr){
 
     }
 }
-
+//disable button lock
 function readDisplay (str){
+
+    //Operate returns number, no new input
+    if (typeof str === 'number') return
     //numbers and operators are seperated by spaces
     let contentArr = str.split(" ");
     historyContent = str + " = ";
@@ -167,44 +233,6 @@ function readDisplay (str){
     else {
         doSequenceOperation(contentArr);
     }
-}
-
-function numpadToDisplay () {
-    window.addEventListener('keydown', e => {
-        const button = document.querySelector(`button[data-key="${e.keyCode}"]`)
-        const value = button.textContent;
-        const decimalBtn = document.querySelector('.decimal');
-        if (!button || !value) return;
-
-        if ( value >= 0){
-            displayContent += value;
-            display.setAttribute('value', displayContent);
-            }
-            else if (value === "CE"){
-                clearEverything();
-            }
-            else if(value === "⌫") {
-                erase ();
-            }
-            else if(value === "="){
-                decimalBtn.disabled = false;
-                //Make str (display content) into an array and seperate numbers and operators
-                readDisplay(displayContent);
-            }
-            else if (value === "."){
-                if (!decimalBtn.disabled){
-                    displayContent += value;
-                    display.setAttribute('value', displayContent);
-                    decimalBtn.disabled = true;
-                }
-            }
-            else {
-                //Add spaces to operators
-                displayContent += ` ${value} `;
-                display.setAttribute('value', displayContent);
-                decimalBtn.disabled = false;
-            } 
-    })
 }
 
 function createButtons () {

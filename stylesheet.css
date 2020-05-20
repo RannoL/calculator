@@ -1,9 +1,18 @@
+:root {
+    --outer-border-color:  #F5F9E9;
+}
+
 html {
     height: 100%;
     width: 100%;
     margin: 0;
     font-size: 100%;
+    background: #F5F9E9;
+    font-family: monospace;
+    color: #F5F9E9;
 }
+
+
 
 #displayContainer {
     display: flex;
@@ -15,27 +24,37 @@ form {
     flex-direction: column;
 }
 
-#display #historyDisplay{
+#display, #historyDisplay{
     display: flex;
-    width: 100%;
+    font-size: 170%;
+    font-weight: bolder;
     padding: 12px;
-    border: 0px
+    width: 50%;
+    margin: 0 auto 0 auto;
+    border-left: 1px solid var(--outer-border-color);
+    border-right: 1px solid var(--outer-border-color);
+    background-color: #0D1321;
+    color:  #F5F9E9;
 }
 
 #historyDisplay {
     text-align: right;
-    opacity: 0.5;
+    color:  rgba(245, 249, 233, 0.5);
+    border-bottom: none;
+    border-top: 1px solid var(--outer-border-color);
+    font-size: 120%;
 }
 
-input {
-    page-break-after: always;
+#display {
+    border-top: none;
+    border-bottom: none;
 }
+
 
 #btnsContainer {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 1%;
 }
 
 #buttons {
@@ -48,9 +67,12 @@ input {
 }
 
 button {
-    font-size: 100%;
+    font-size: 120%;
     padding: 0.5%;
+}
 
+button:focus{
+    outline: none;
 }
 
 .equal {
