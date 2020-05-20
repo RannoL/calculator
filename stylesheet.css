@@ -116,6 +116,12 @@ button:active {
     transition: 0.3s;
 }
 
+.clicked {
+    color: #10253D;
+    transform: scale(0.8);
+    transition: 0.3s;
+}
+
 .zero {
     grid-column: span 2;
 }

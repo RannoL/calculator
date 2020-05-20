@@ -24,6 +24,7 @@ function addKeydownEvents (e) {
     //prevents enter from excecuting the focused button
     e.preventDefault();
     const button = document.querySelector(`button[data-key="${e.keyCode}"]`)
+    buttonPressed(button);
     if (!button)return;
     const value = button.textContent;
     const decimalBtn = document.querySelector('.decimal');
@@ -65,6 +66,11 @@ function numpadToDisplay() {
 
 function restartWithEnter(e){
     e.keyCode === 13 ? clearEverything() : void(0);
+}
+
+function buttonPressed (btn) {
+    btn.classList.add('clicked');
+    setTimeout(() => {btn.classList.remove('clicked')},100)
 }
 
 function enableAllBtns () {
