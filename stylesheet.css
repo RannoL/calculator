@@ -1,5 +1,6 @@
-:root {
-    --outer-border-color:  #F5F9E9;
+
+* {
+    color:  #E8E9EB;
 }
 
 html {
@@ -7,41 +8,52 @@ html {
     width: 100%;
     margin: 0;
     font-size: 100%;
-    background: #F5F9E9;
-    font-family: monospace;
-    color: #F5F9E9;
+    background: #DFE0E2;
+    font-family: 'Roboto', sans-serif;
 }
 
-
+#calcContainer {
+    box-sizing: border-box;
+    width: 320px;
+    min-height: 400px;
+    margin: 0 auto;
+    background: #18344D;
+    padding-bottom: 1.5%;
+    box-shadow: 0px 8px 50px -7px black;
+    border-radius: 5%;
+}
 
 #displayContainer {
     display: flex;
     justify-content: center;
+    margin-top: 6em;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    width: 250px;
+    word-wrap: break-word;
+    overflow: auto;
 }
+
 
 #display, #historyDisplay{
     display: flex;
-    font-size: 170%;
+    margin: 0  auto;
+    font-size: 200%;
     font-weight: bolder;
     padding: 12px;
-    width: 50%;
-    margin: 0 auto 0 auto;
-    border-left: 1px solid var(--outer-border-color);
-    border-right: 1px solid var(--outer-border-color);
-    background-color: #0D1321;
-    color:  #F5F9E9;
+    width: 70%;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
 #historyDisplay {
     text-align: right;
-    color:  rgba(245, 249, 233, 0.5);
-    border-bottom: none;
-    border-top: 1px solid var(--outer-border-color);
+    border-bottom: 0.5px dotted rgba(232, 233, 235, 0.3);
+    color: rgba(232, 233, 235, 0.5);
     font-size: 120%;
 }
 
@@ -61,26 +73,66 @@ form {
     display: grid;
     grid-template-columns: repeat(4,4em);
     grid-template-rows: repeat(5,4em);
-    row-gap: 0.7em;
-    column-gap: 0.7em;
-
+    gap: 0.09em 0.15em;
 }
 
 button {
-    font-size: 120%;
+    font-size: 150%;
     padding: 0.5%;
+    background: #10253D;
+    border: none;
 }
 
 button:focus{
     outline: none;
 }
 
+button:hover {
+    transform: scale(1.1);
+    background: #577182;
+    transition: 0.2s;
+}
+
 .equal {
     grid-row: span 2;
+    background-color: #FFB563;
+    color: #10253D;
+}
+
+.equal:hover {
+    background-color: rgb(252, 154, 63);
+}
+
+.erase:hover, .divide:hover,
+.multiply:hover,.subtract:hover,
+.add:hover{
+    background-color: #F97518;
 }
 
 .zero {
     grid-column: span 2;
 }
 
+.clear {
+    color: #B53C42;
+}
 
+
+
+.erase {
+    font-size: 100%;
+}
+
+a img{
+    height: 80px;
+    width: 80px;
+}
+
+
+footer {
+    display: inline-flex;
+    position: relative;
+    width: 100%;
+    top: 5em;
+    justify-content: center;
+}
