@@ -1,6 +1,7 @@
-@media only screen and (max-width: 600px){
+@media screen and (max-width: 600px){
     html {
-        transform: scale(1);
+        width: 80%;
+        background-color: red;
     }
 }
 
@@ -20,8 +21,8 @@ html {
 
 #calcContainer {
     box-sizing: border-box;
-    width: 320px;
-    min-height: 400px;
+    width: 20rem;
+    min-height: 30rem;
     margin: 0 auto;
     background: #18344D;
     padding-bottom: 1.5%;
