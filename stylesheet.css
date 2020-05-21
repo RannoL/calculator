@@ -32,9 +32,7 @@ html {
 form {
     display: flex;
     flex-direction: column;
-    width: 250px;
-    word-wrap: break-word;
-    overflow: auto;
+    width: 85%;
 }
 
 
@@ -44,11 +42,12 @@ form {
     font-size: 200%;
     font-weight: bolder;
     padding: 12px;
-    width: 70%;
+    width: 85%;
     background-color: transparent;
     border: none;
     outline: none;
     pointer-events: none;
+    justify-content: center;
 }
 
 #historyDisplay {

@@ -24,8 +24,8 @@ function addKeydownEvents (e) {
     //prevents enter from excecuting the focused button
     e.preventDefault();
     const button = document.querySelector(`button[data-key="${e.keyCode}"]`)
-    buttonPressed(button);
     if (!button)return;
+    buttonPressed(button);
     const value = button.textContent;
     const decimalBtn = document.querySelector('.decimal');
     
