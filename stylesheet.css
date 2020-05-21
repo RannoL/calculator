@@ -1,4 +1,6 @@
 
+
+
 * {
     color:  #E8E9EB;
 }
@@ -21,52 +23,51 @@ html {
     padding-bottom: 1.5%;
     box-shadow: 0px 8px 50px -7px black;
     border-radius: 5%;
+    transform: scale(1.2);
 }
 
 #displayContainer {
     display: flex;
     justify-content: center;
-    margin-top: 6em;
+    flex-flow: column wrap;
+    margin-top: 10em;
 }
 
-form {
+#inputContainer, #historyContainer {
     display: flex;
-    flex-direction: column;
-    width: 85%;
-}
-
-
-#display, #historyDisplay{
-    display: flex;
-    margin: 0  auto;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    align-items: flex-end;
+    margin: 0 auto;
+    min-height: 1.5em;
+    width: 80%;
     font-size: 200%;
     font-weight: bolder;
-    padding: 12px;
-    width: 85%;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    pointer-events: none;
-    justify-content: center;
 }
 
-#historyDisplay {
+span {
+    width: 95%;
+}
+
+#historyContainer {
     text-align: right;
     border-bottom: 0.5px dotted rgba(232, 233, 235, 0.3);
-    color: rgba(232, 233, 235, 0.5);
     font-size: 120%;
+    margin: 2% auto;
+    padding: 2%;
 }
 
-#display {
-    border-top: none;
-    border-bottom: none;
+#historyContainer span {
+    color: rgba(232, 233, 235, 0.5);
 }
+
 
 
 #btnsContainer {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 1em;
 }
 
 #buttons {
@@ -138,6 +139,11 @@ button:active {
 a img{
     height: 80px;
     width: 80px;
+}
+
+a img:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-out;
 }
 
 

@@ -32,7 +32,7 @@ function addKeydownEvents (e) {
 
     if ( value >= 0){
         displayContent += value;
-        display.setAttribute('value', displayContent);
+        display.textContent = displayContent;
         }
         else if (value === "CE"){
             clearEverything();
@@ -48,14 +48,14 @@ function addKeydownEvents (e) {
         else if (value === "."){
             if (!decimalBtn.disabled){
                 displayContent += value;
-                display.setAttribute('value', displayContent);
+                display.textContent = displayContent
                 decimalBtn.disabled = true;
             }
         }
         else {
             //Add spaces to operators
             displayContent += ` ${value} `;
-            display.setAttribute('value', displayContent);
+            display.textContent = displayContent
             decimalBtn.disabled = false;
         } 
 }
@@ -94,21 +94,23 @@ function operate (operator, a, b) {
         displayContent = "Error";
         historyContent = "";
         disableAllBtns();
-        display.setAttribute('value', displayContent);
-        historyDisplay.setAttribute('value', historyContent);
+        display.textContent = displayContent;
+        historyDisplay.textContent = historyContent;
         return
     }else if (b === 0 && operator === divide) {
+        console.log({b})
         displayContent = "Cannot divide by zero";
         historyContent = "";
-        display.setAttribute('value', displayContent);
-        historyDisplay.setAttribute('value', historyContent);
+        disableAllBtns();
+        display.textContent = displayContent
+        historyDisplay.textContent = historyContent;
         return
     }
     //Rounding for decimal calculations
     let answer = Math.round((operator(a,b))*10000)/10000;
     displayContent = answer
     answer.toString().includes(".") ? document.querySelector('.decimal').disabled = true : void(0);
-    display.setAttribute('value', answer);
+    display.textContent = displayContent;
     return answer;
     
 }
@@ -116,8 +118,8 @@ function operate (operator, a, b) {
 function clearEverything(){
     displayContent = "";
     historyContent = "";
-    display.setAttribute('value', displayContent);
-    historyDisplay.setAttribute('value', historyContent);
+    display.textContent = displayContent
+    historyDisplay.textContent = historyContent;
     enableAllBtns();
 }
 
@@ -130,8 +132,7 @@ function erase(){
             contentArr.pop();
             contentArr.pop();
             displayContent = contentArr.join("");
-            display.setAttribute('value', displayContent)
-    
+            display.textContent = displayContent
         }
         else {
             let a = contentArr.pop();
@@ -139,13 +140,12 @@ function erase(){
                 document.querySelector('.decimal').disabled = false;
             }
             displayContent = contentArr.join("");
-            display.setAttribute('value', displayContent)
+            display.textContent = displayContent
         }
     }
     else {
         displayContent = "";
-        display.setAttribute('value', displayContent)
-
+        display.textContent = displayContent
     }
 }
 
@@ -220,7 +220,7 @@ function readDisplay (str){
     //numbers and operators are seperated by spaces
     let contentArr = str.split(" ");
     historyContent = str + " = ";
-    historyDisplay.setAttribute('value', historyContent)
+    historyDisplay.textContent = historyContent;
 
     //Includes one operation
     if (contentArr.length < 4){
@@ -276,7 +276,7 @@ function inputToDisplay (e, btnValues, i){
     //[0-9] is >= 0
     if ( value >= 0){
     displayContent += btnSelection;
-    display.setAttribute('value', displayContent);
+    display.textContent = displayContent
     }
     else if (value === "CE"){
         clearEverything();
@@ -292,14 +292,14 @@ function inputToDisplay (e, btnValues, i){
     else if (value === "."){
         if (!decimalBtn.disabled){
             displayContent += btnSelection;
-            display.setAttribute('value', displayContent);
+            display.textContent = displayContent
             decimalBtn.disabled = true;
         }
     }
     else {
         //Add spaces to operators
         displayContent += ` ${btnSelection} `;
-        display.setAttribute('value', displayContent);
+        display.textContent = displayContent
         decimalBtn.disabled = false;
     } 
 }
