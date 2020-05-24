@@ -157,4 +157,8 @@ footer {
     #displayContainer{
         margin-top: 2em;
     }
+
+    html{
+        zoom: 1;
+    }
 }
